@@ -71,7 +71,7 @@ class Test extends TemplateTest
 
     private function assertApplicationWorksCorrectly(): void
     {
-        $browser = new Browser('http://localhost:10000');
+        $browser = new Browser('http://localhost:50000');
 
         $browser->visit('/');
         $this->assertTrue($browser->pathIs("/"));

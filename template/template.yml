@@ -59,32 +59,20 @@ deployment:
   - resource: container
     name: vue
     image: "{{ image.vue_application }}"
-    endpoints:
-      - name: vue_internal
-        type: container_port
-        port: 80
-      - name: vue_external
-        type: domain
-        port: 80
     environment:
       - key: TIMEZONE
         value: "{{ variable.timezone }}"
       - map: "{{ variable.environment }}"
+        if: "{{ variable.environment }}"
     memory: 256
-    cpus: 256
+    cpus: 250
+  - resource: service
+    name: vue_application
+    title: Vue.js application
+    container: "{{ container.vue }}"
+    port: 80
 
 interface:
-  endpoints:
-    show:
-      - title: Internal endpoint
-        endpoint: "{{ endpoint.vue_internal }}"
-      - title: External endpoint
-        endpoint: "{{ endpoint.vue_external }}"
-    create:
-      - title: External endpoint
-        container: "{{ container.vue }}"
-        port: 80
-        type: domain
   logs:
     - title: NGINX error logs
       container: "{{ container.vue }}"
