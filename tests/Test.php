@@ -23,6 +23,8 @@ class Test extends TemplateTest
             ],
         ]);
 
+        unset($imageFiles['template.yml']);
+
         $this->assertParsedImageFilesMatchFolderContents($imageFiles, __DIR__ . "/concerns/npm_result");
     }
 
@@ -35,6 +37,8 @@ class Test extends TemplateTest
                 'yarn run build',
             ]
         ]);
+
+        unset($imageFiles['template.yml']);
 
         $this->assertParsedImageFilesMatchFolderContents($imageFiles, __DIR__ . "/concerns/yarn_result");
     }

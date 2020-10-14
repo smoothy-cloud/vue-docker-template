@@ -1,7 +1,7 @@
 api: v1
 
 meta:
-  icon: vue
+  icon: vuejs
   name: Vue.js
   baseline: The Progressive JavaScript Framework.
   description: >
@@ -60,8 +60,6 @@ deployment:
     name: vue
     image: "{{ image.vue_application }}"
     environment:
-      - key: TIMEZONE
-        value: "{{ variable.timezone }}"
       - map: "{{ variable.environment }}"
         if: "{{ variable.environment }}"
     memory: 256
