@@ -39,8 +39,12 @@ form:
           The script that needs to be executed to compile the assets of your application.
         required: true
         type: code
-        default: >
-          npm run build
+        default:
+          switch:
+            - case: "{{ variable.package_manager == 'npm' }}"
+              value: npm run build
+            - case: "{{ variable.package_manager == 'yarn' }}"
+              value: yarn run build
   - title: Runtime configuration
     questions:
       - variable: environment
@@ -58,7 +62,7 @@ deployment:
     dockerfile: Dockerfile
   - resource: container
     name: vue
-    image: "{{ image.vue_application }}"
+    image: "{* image.vue_application *}"
     environment:
       - map: "{{ variable.environment }}"
         if: "{{ variable.environment }}"
@@ -67,10 +71,10 @@ deployment:
   - resource: service
     name: vue_application
     title: Vue.js application
-    container: "{{ container.vue }}"
+    container: "{* container.vue *}"
     port: 80
 
 interface:
   logs:
     - title: NGINX error logs
-      container: "{{ container.vue }}"
+      container: "{* container.vue *}"

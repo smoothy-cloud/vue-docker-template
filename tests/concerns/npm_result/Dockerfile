@@ -7,13 +7,10 @@ RUN npm install --silent
 
 COPY code-repository/. /app/
 RUN npm run build
+RUN npm run build
 
-FROM nginx:1.18-alpine
+FROM smoothy/nginx-1.18:1.0.0
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY server.conf /etc/nginx/conf.d/server.conf
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-EXPOSE 80
-WORKDIR /usr/share/nginx/html
-
-CMD ["/usr/sbin/nginx", "-c", "/etc/nginx/nginx.conf"]

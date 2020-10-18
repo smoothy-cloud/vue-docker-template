@@ -11,16 +11,11 @@ RUN yarn install --silent
 {% endif %}
 
 COPY code-repository/. /app/
-{% for command in variable.build_script %}
+{% for command in variable.build_script|trim|split('\n') %}
 RUN {{ command }}
 {% endfor %}
 
-FROM nginx:1.18-alpine
+FROM smoothy/nginx-1.18:1.0.0
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY server.conf /etc/nginx/conf.d/server.conf
 COPY --from=build-stage /app/dist /usr/share/nginx/html
-
-EXPOSE 80
-WORKDIR /usr/share/nginx/html
-
-CMD ["/usr/sbin/nginx", "-c", "/etc/nginx/nginx.conf"]

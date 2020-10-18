@@ -18,9 +18,10 @@ class Test extends TemplateTest
     {
         $imageFiles = $this->parseImageFiles([
             'package_manager' => 'npm',
-            'build_script' => [
-                'npm run build',
-            ],
+            'build_script' => <<<EOD
+npm run build
+npm run build
+EOD,
         ]);
 
         unset($imageFiles['template.yml']);
@@ -33,9 +34,10 @@ class Test extends TemplateTest
     {
         $imageFiles = $this->parseImageFiles([
             'package_manager' => 'yarn',
-            'build_script' => [
-                'yarn run build',
-            ]
+            'build_script' => <<<EOD
+yarn run build
+yarn run build
+EOD,
         ]);
 
         unset($imageFiles['template.yml']);
@@ -49,9 +51,7 @@ class Test extends TemplateTest
         $variables = [
             'vue_application' => __DIR__."/concerns/application",
             'package_manager' => 'npm',
-            'build_script' => [
-                'npm run build',
-            ],
+            'build_script' => 'npm run build',
         ];
 
         $this->deployApplication($variables);
@@ -64,9 +64,7 @@ class Test extends TemplateTest
         $variables = [
             'vue_application' => __DIR__."/concerns/application",
             'package_manager' => 'yarn',
-            'build_script' => [
-                'yarn run build',
-            ],
+            'build_script' => 'yarn run build',
         ];
 
         $this->deployApplication($variables);
