@@ -68,11 +68,11 @@ deployment:
         if: "{{ variable.environment }}"
     memory: 256
     cpus: 250
-  - resource: service
+  - resource: entrypoint
     name: vue_application
     title: Vue.js application
     container: "{* container.vue *}"
-    port: 80
+    port: 8080
 
 interface:
   logs:
